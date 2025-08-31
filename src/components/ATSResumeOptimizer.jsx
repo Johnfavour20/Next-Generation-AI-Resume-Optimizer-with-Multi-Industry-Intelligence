@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Upload, FileText, Target, BarChart3, CheckCircle, AlertCircle, Download, Sparkles, Brain, Users, TrendingUp, Award, Eye, RefreshCw, Search, Filter, BookOpen, Lightbulb, Settings, Globe, Building2, Zap, LineChart, PieChart, Calendar, Mail, Phone, MapPin, User, Edit3, Plus, Minus, Save, Copy, Share2, ExternalLink, Shield, Lock, Clock, Star, ThumbsUp, MessageCircle, Briefcase, GraduationCap, Code, Palette, Heart, DollarSign, Truck, Camera, Mic } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Upload, FileText, Target, BarChart3, CheckCircle, AlertCircle, Download, Sparkles, Brain, Users, TrendingUp, Eye, RefreshCw, Search, BookOpen, Lightbulb, Globe, Building2, Zap, LineChart, Mail, Phone, User, Edit3, Plus, Copy, ExternalLink, Shield, Lock, Clock, Star, Briefcase, GraduationCap, Code, Palette, Heart, DollarSign, Truck, Camera } from 'lucide-react';
 
 const ATSResumeOptimizer = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [activeSubTab, setActiveSubTab] = useState('overview');
+  
   const [uploadedFile, setUploadedFile] = useState(null);
   const [jobDescription, setJobDescription] = useState('');
   const [analysisComplete, setAnalysisComplete] = useState(false);
@@ -249,8 +249,8 @@ const ATSResumeOptimizer = () => {
                   <Brain className="w-8 h-8 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-gray-900">Resume Optimizer Pro</h1>
-                  <p className="text-sm text-gray-500">Enterprise ATS Intelligence Platform</p>
+                  <h1 className="text-xl font-bold text-gray-900">Resume Optimizer</h1>
+                  <p className="text-sm text-gray-500">ATS Intelligence Platform</p>
                 </div>
               </div>
             </div>
@@ -271,7 +271,7 @@ const ATSResumeOptimizer = () => {
               
               <div className="flex items-center space-x-2">
                 <Shield className="w-5 h-5 text-green-500" />
-                <span className="text-sm text-gray-600">Enterprise Secured</span>
+                <span className="text-sm text-gray-600">Secured</span>
               </div>
               
               <nav className="hidden md:flex space-x-8">
@@ -291,14 +291,14 @@ const ATSResumeOptimizer = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-center">
             <h2 className="text-5xl font-bold mb-6 leading-tight">
-              Next-Generation AI Resume Optimizer
+              Intelligent Resume Optimizer
               <span className="block bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-                with Multi-Industry Intelligence
+                for ATS Compatibility
               </span>
             </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-4xl mx-auto leading-relaxed">
-              Advanced semantic matching, real-time ATS scoring, industry-specific optimization, 
-              and intelligent content enhancement powered by cutting-edge machine learning algorithms.
+              Transform your resume into an ATS-friendly powerhouse with AI-driven optimization, 
+              real-time keyword analysis, and intelligent formatting suggestions that get you noticed.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <button 
@@ -400,9 +400,9 @@ const ATSResumeOptimizer = () => {
                   { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
                   { id: 'upload', label: 'Upload Resume', icon: Upload },
                   { id: 'builder', label: 'Resume Builder', icon: Edit3 },
-                  { id: 'analyze', label: 'Smart Analysis', icon: Brain },
-                  { id: 'results', label: 'ATS Intelligence', icon: Target },
-                  { id: 'optimize', label: 'AI Optimizer', icon: Sparkles },
+                  { id: 'analyze', label: 'ATS Analysis', icon: Brain },
+                  { id: 'results', label: 'Results', icon: Target },
+                  { id: 'optimize', label: 'Optimizer', icon: Sparkles },
                   { id: 'integrations', label: 'Integrations', icon: ExternalLink }
                 ].map(({ id, label, icon: Icon }) => (
                   <button
@@ -426,8 +426,8 @@ const ATSResumeOptimizer = () => {
               {activeTab === 'dashboard' && (
                 <div className="space-y-8">
                   <div className="text-center">
-                    <h3 className="text-3xl font-bold text-gray-900 mb-4">Analytics Dashboard</h3>
-                    <p className="text-gray-600 mb-8">Track your career optimization progress and success metrics</p>
+                    <h3 className="text-3xl font-bold text-gray-900 mb-4">ATS Compatibility Dashboard</h3>
+                    <p className="text-gray-600 mb-8">Track your resume optimization progress and ATS compatibility metrics</p>
                   </div>
                   
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -553,7 +553,7 @@ const ATSResumeOptimizer = () => {
               {activeTab === 'builder' && (
                 <div className="space-y-8">
                   <div className="text-center">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">AI-Powered Resume Builder</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">ATS-Compatible Resume Builder</h3>
                     <p className="text-gray-600 mb-8">Build an ATS-optimized resume with real-time scoring and suggestions</p>
                   </div>
                   
@@ -754,7 +754,7 @@ const ATSResumeOptimizer = () => {
               {activeTab === 'analyze' && (
                 <div className="space-y-8">
                   <div className="text-center">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Smart Job Analysis</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">ATS Compatibility Analysis</h3>
                     <p className="text-gray-600 mb-8">Advanced semantic analysis with industry-specific optimization</p>
                   </div>
 
@@ -874,7 +874,7 @@ const ATSResumeOptimizer = () => {
                   {analysisComplete && (
                     <>
                       <div className="text-center">
-                        <h3 className="text-3xl font-bold text-gray-900 mb-4">AI Analysis Results</h3>
+                        <h3 className="text-3xl font-bold text-gray-900 mb-4">ATS Compatibility Results</h3>
                         <p className="text-gray-600 mb-8">Comprehensive ATS intelligence with industry-specific insights</p>
                       </div>
 
@@ -1013,7 +1013,7 @@ const ATSResumeOptimizer = () => {
               {activeTab === 'optimize' && (
                 <div className="space-y-8">
                   <div className="text-center">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">AI Resume Optimizer</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Resume Optimizer</h3>
                     <p className="text-gray-600 mb-8">Apply intelligent improvements with one-click optimization</p>
                   </div>
 
@@ -1057,7 +1057,7 @@ const ATSResumeOptimizer = () => {
                           <Sparkles className="w-5 h-5 mr-2 text-green-500" />
                           AI Content Enhancement
                           <span className="ml-auto text-sm bg-green-100 text-green-700 px-2 py-1 rounded">
-                            Premium
+                            Advanced
                           </span>
                         </h4>
                         <div className="space-y-3">
@@ -1223,13 +1223,13 @@ const ATSResumeOptimizer = () => {
                       <div>
                         <h5 className="font-semibold text-gray-900 mb-3">Quick Start</h5>
                         <div className="bg-gray-900 rounded-lg p-4 text-sm">
-                          <div className="text-green-400 mb-2">// Initialize API client</div>
+                          <div className="text-green-400 mb-2">{`// Initialize API client`}</div>
                           <div className="text-blue-300">const</div>
                           <div className="text-white"> client = </div>
                           <div className="text-yellow-300">new</div>
                           <div className="text-white"> ResumeOptimizer(apiKey);</div>
                           <br/>
-                          <div className="text-green-400 mb-2">// Analyze resume</div>
+                          <div className="text-green-400 mb-2">{`// Analyze resume`}</div>
                           <div className="text-blue-300">const</div>
                           <div className="text-white"> result = </div>
                           <div className="text-blue-300">await</div>
@@ -1252,10 +1252,10 @@ const ATSResumeOptimizer = () => {
       <section className="py-20 bg-gradient-to-r from-indigo-900 via-blue-900 to-purple-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h3 className="text-4xl font-bold mb-6">Enterprise-Grade Features</h3>
+            <h3 className="text-4xl font-bold mb-6">ATS-Compatible Features</h3>
             <p className="text-blue-100 text-xl max-w-4xl mx-auto leading-relaxed">
               Advanced AI technology meets comprehensive career development tools to deliver 
-              unmatched resume optimization and job matching capabilities
+              unmatched resume optimization and ATS compatibility
             </p>
           </div>
           
@@ -1342,18 +1342,18 @@ const ATSResumeOptimizer = () => {
                   <Brain className="w-8 h-8 text-white" />
                 </div>
                 <div>
-                  <span className="text-2xl font-bold">Resume Optimizer Pro</span>
-                  <div className="text-sm text-gray-400">Enterprise Edition</div>
+                  <span className="text-2xl font-bold">Resume Optimizer</span>
+                  <div className="text-sm text-gray-400">ATS Intelligence Platform</div>
                 </div>
               </div>
               <p className="text-gray-400 mb-6 max-w-md">
                 Empowering professionals worldwide with AI-driven resume optimization, 
-                multi-industry intelligence, and enterprise-grade career development tools.
+                multi-industry intelligence, and career development tools.
               </p>
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-2">
                   <Shield className="w-5 h-5 text-green-400" />
-                  <span className="text-sm text-gray-300">SOC 2 Certified</span>
+                  <span className="text-sm text-gray-300">Secure Platform</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Lock className="w-5 h-5 text-blue-400" />
@@ -1399,7 +1399,7 @@ const ATSResumeOptimizer = () => {
           <div className="border-t border-gray-800 mt-12 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-400 mb-4 md:mb-0">
-                © 2024 Resume Optimizer Pro. All rights reserved. | Developed by AMAECHI CHUKWUEMEKA QUINCY
+                © 2025 Resume Optimizer. All rights reserved.
               </p>
               <div className="flex items-center space-x-6 text-gray-400">
                 <span className="flex items-center space-x-2">
