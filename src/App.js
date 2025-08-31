@@ -89,21 +89,8 @@ function Register() {
 
 function OptimizerWrapper({ onLogout }) {
   const navigate = useNavigate();
-  const userName = localStorage.getItem("userName") || "User";
   return (
     <div className="relative min-h-screen">
-      <div className="flex items-center justify-between px-6 py-4 bg-blue-600 text-white shadow">
-        <h2 className="text-lg font-semibold">Welcome, {userName} 👋</h2>
-        <button
-          onClick={() => {
-            onLogout();
-            navigate("/");
-          }}
-          className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
-        >
-          Logout
-        </button>
-      </div>
       <ATSResumeOptimizer />
     </div>
   );
