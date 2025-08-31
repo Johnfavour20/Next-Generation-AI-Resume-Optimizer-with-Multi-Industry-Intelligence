@@ -40,17 +40,18 @@ function Login({ onLogin }) {
     onLogin();
     navigate("/optimizer");
   };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-md w-full max-w-md">
+        <h2 className="text-xl sm:text-2xl font-bold text-center mb-6">Login</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input type="email" placeholder="Email" required className="w-full px-4 py-2 border rounded-lg" />
-          <input type="password" placeholder="Password" required className="w-full px-4 py-2 border rounded-lg" />
-          <button type="submit" className="w-full py-2 bg-blue-600 text-white rounded-lg">Login</button>
+          <input type="email" placeholder="Email" required className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          <input type="password" placeholder="Password" required className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+          <button type="submit" className="w-full py-2 sm:py-3 text-sm sm:text-base bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Login</button>
         </form>
-        <p className="mt-4 text-center text-sm text-gray-600">
-          Don’t have an account?{" "}
+        <p className="mt-4 text-center text-xs sm:text-sm text-gray-600">
+          Don't have an account?{" "}
           <Link to="/register" className="text-blue-600 hover:underline">Register</Link>
         </p>
       </div>
@@ -91,7 +92,7 @@ function OptimizerWrapper({ onLogout }) {
   useEffect(() => {
     const userName = localStorage.getItem('userName');
     const hasCompletedWelcome = localStorage.getItem('hasCompletedWelcome');
-    
+
     // Show welcome page if user doesn't have a name or hasn't completed welcome
     if (!userName || !hasCompletedWelcome) {
       setShowWelcome(true);

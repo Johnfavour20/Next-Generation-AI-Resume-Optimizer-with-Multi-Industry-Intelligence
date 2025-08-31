@@ -3,7 +3,7 @@ import { Upload, FileText, Target, BarChart3, CheckCircle, AlertCircle, Download
 
 const ATSResumeOptimizer = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
-  
+
   const [uploadedFile, setUploadedFile] = useState(null);
   const [jobDescription, setJobDescription] = useState('');
   const [analysisComplete, setAnalysisComplete] = useState(false);
@@ -109,7 +109,7 @@ const ATSResumeOptimizer = () => {
     const circumference = 2 * Math.PI * 45;
     const strokeDasharray = circumference;
     const strokeDashoffset = circumference - (score / 100) * circumference;
-    
+
     return (
       <div className="relative" style={{ width: size, height: size }}>
         <svg className="transform -rotate-90 w-full h-full">
@@ -254,7 +254,7 @@ const ATSResumeOptimizer = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-4">
               {/* Language Selector */}
               <select 
@@ -268,12 +268,12 @@ const ATSResumeOptimizer = () => {
                   </option>
                 ))}
               </select>
-              
+
               <div className="flex items-center space-x-2">
                 <Shield className="w-5 h-5 text-green-500" />
                 <span className="text-sm text-gray-600">Secured</span>
               </div>
-              
+
               <nav className="hidden md:flex space-x-8">
                 <a href="#" className="text-gray-900 hover:text-blue-600 transition-colors font-medium">Dashboard</a>
                 <a href="#" className="text-gray-500 hover:text-blue-600 transition-colors">Templates</a>
@@ -313,7 +313,7 @@ const ATSResumeOptimizer = () => {
                 <span>API Documentation</span>
               </button>
             </div>
-            
+
             {/* Enhanced Feature Pills */}
             <div className="flex flex-wrap justify-center gap-3">
               {['Multi-Language Support', '20+ Industries', 'Real-time Analysis', 'Semantic AI', 'Enterprise Security', 'API Integration'].map((feature, index) => (
@@ -324,7 +324,7 @@ const ATSResumeOptimizer = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Enhanced floating elements */}
         <div className="absolute top-20 left-10 animate-pulse">
           <div className="p-3 bg-white bg-opacity-20 rounded-full backdrop-blur-sm">
@@ -392,10 +392,10 @@ const ATSResumeOptimizer = () => {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
-            
+
             {/* Enhanced Tab Navigation */}
             <div className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-blue-50">
-              <nav className="flex space-x-8 px-8">
+              <nav className="flex space-x-8 px-8 overflow-x-auto">
                 {[
                   { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
                   { id: 'upload', label: 'Upload Resume', icon: Upload },
@@ -414,8 +414,9 @@ const ATSResumeOptimizer = () => {
                         : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                     }`}
                   >
-                    <Icon className="w-4 h-4" />
-                    <span>{label}</span>
+                    <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <span className="hidden sm:inline">{label}</span>
+                    <span className="sm:hidden">{label.split(' ')[0]}</span>
                   </button>
                 ))}
               </nav>
@@ -429,14 +430,14 @@ const ATSResumeOptimizer = () => {
                     <h3 className="text-3xl font-bold text-gray-900 mb-4">ATS Compatibility Dashboard</h3>
                     <p className="text-gray-600 mb-8">Track your resume optimization progress and ATS compatibility metrics</p>
                   </div>
-                  
+
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2">
                       <AnalyticsChart />
                     </div>
                     <ProgressTracker />
                   </div>
-                  
+
                   {/* Quick Actions */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
@@ -456,7 +457,7 @@ const ATSResumeOptimizer = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border border-green-100">
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">Success Metrics</h4>
                       <div className="space-y-3">
@@ -474,7 +475,7 @@ const ATSResumeOptimizer = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-100">
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">Recommendations</h4>
                       <div className="space-y-2">
@@ -497,7 +498,7 @@ const ATSResumeOptimizer = () => {
                     <h3 className="text-2xl font-bold text-gray-900 mb-4">Upload & Analyze Resume</h3>
                     <p className="text-gray-600 mb-8">Upload your resume for advanced ATS analysis and optimization</p>
                   </div>
-                  
+
                   <div 
                     className="border-2 border-dashed border-blue-300 rounded-xl p-12 text-center hover:border-blue-400 transition-colors cursor-pointer bg-gradient-to-br from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100"
                     onClick={() => fileInputRef.current?.click()}
@@ -556,7 +557,7 @@ const ATSResumeOptimizer = () => {
                     <h3 className="text-2xl font-bold text-gray-900 mb-4">ATS-Compatible Resume Builder</h3>
                     <p className="text-gray-600 mb-8">Build an ATS-optimized resume with real-time scoring and suggestions</p>
                   </div>
-                  
+
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Builder Form */}
                     <div className="space-y-6">
@@ -714,7 +715,7 @@ const ATSResumeOptimizer = () => {
                                 )}
                               </div>
                             </div>
-                            
+
                             {resumeBuilder.summary && (
                               <div>
                                 <h6 className="font-semibold text-gray-900 mb-2">PROFESSIONAL SUMMARY</h6>
@@ -1258,7 +1259,7 @@ const ATSResumeOptimizer = () => {
               unmatched resume optimization and ATS compatibility
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
@@ -1361,7 +1362,7 @@ const ATSResumeOptimizer = () => {
                 </div>
               </div>
             </div>
-            
+
             <div>
               <h5 className="font-semibold mb-4 text-lg">Product</h5>
               <ul className="space-y-3 text-gray-400">
@@ -1372,7 +1373,7 @@ const ATSResumeOptimizer = () => {
                 <li><a href="#" className="hover:text-white transition-colors">Enterprise</a></li>
               </ul>
             </div>
-            
+
             <div>
               <h5 className="font-semibold mb-4 text-lg">Support</h5>
               <ul className="space-y-3 text-gray-400">
@@ -1383,7 +1384,7 @@ const ATSResumeOptimizer = () => {
                 <li><a href="#" className="hover:text-white transition-colors">Tutorials</a></li>
               </ul>
             </div>
-            
+
             <div>
               <h5 className="font-semibold mb-4 text-lg">Company</h5>
               <ul className="space-y-3 text-gray-400">
@@ -1395,7 +1396,7 @@ const ATSResumeOptimizer = () => {
               </ul>
             </div>
           </div>
-          
+
           <div className="border-t border-gray-800 mt-12 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-400 mb-4 md:mb-0">

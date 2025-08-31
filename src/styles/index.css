@@ -268,6 +268,19 @@ body {
   h3 {
     @apply text-lg;
   }
+  
+  /* Improve touch targets for mobile */
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better input field sizing on mobile */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
 }
 
 /* Custom Component Overrides */
