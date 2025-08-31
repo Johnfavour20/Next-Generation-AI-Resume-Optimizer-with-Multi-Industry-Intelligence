@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import ATSResumeOptimizer from "./components/ATSResumeOptimizer";
+import WelcomePage from "./components/WelcomePage";
 
 function Home() {
   const navigate = useNavigate();
@@ -86,6 +87,27 @@ function Register() {
 
 function OptimizerWrapper({ onLogout }) {
   const navigate = useNavigate();
+  const [showWelcome, setShowWelcome] = useState(false);
+
+  useEffect(() => {
+    const userName = localStorage.getItem('userName');
+    const hasCompletedWelcome = localStorage.getItem('hasCompletedWelcome');
+    
+    // Show welcome page if user doesn't have a name or hasn't completed welcome
+    if (!userName || !hasCompletedWelcome) {
+      setShowWelcome(true);
+    }
+  }, []);
+
+  const handleProceedFromWelcome = () => {
+    localStorage.setItem('hasCompletedWelcome', 'true');
+    setShowWelcome(false);
+  };
+
+  if (showWelcome) {
+    return <WelcomePage onProceed={handleProceedFromWelcome} />;
+  }
+
   return (
     <div className="relative min-h-screen">
       <ATSResumeOptimizer />
@@ -110,6 +132,7 @@ export default function App() {
     setIsAuthenticated(false);
     localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("userName");
+    localStorage.removeItem("hasCompletedWelcome");
   };
 
   return (
