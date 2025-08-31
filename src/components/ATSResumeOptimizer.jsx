@@ -3,7 +3,6 @@ import { Upload, FileText, Target, BarChart3, CheckCircle, AlertCircle, Download
 
 const ATSResumeOptimizer = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
-
   const [uploadedFile, setUploadedFile] = useState(null);
   const [jobDescription, setJobDescription] = useState('');
   const [analysisComplete, setAnalysisComplete] = useState(false);
@@ -48,7 +47,6 @@ const ATSResumeOptimizer = () => {
     { id: 'logistics', name: 'Logistics & Supply Chain', icon: Truck, color: 'orange' },
     { id: 'media', name: 'Media & Communications', icon: Camera, color: 'indigo' }
   ];
-
   const languages = [
     { code: 'en', name: 'English', flag: '🇺🇸' },
     { code: 'es', name: 'Spanish', flag: '🇪🇸' },
@@ -57,7 +55,6 @@ const ATSResumeOptimizer = () => {
     { code: 'pt', name: 'Portuguese', flag: '🇧🇷' },
     { code: 'zh', name: 'Chinese', flag: '🇨🇳' }
   ];
-
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -65,7 +62,6 @@ const ATSResumeOptimizer = () => {
       setActiveTab('analyze');
     }
   };
-
   const simulateAnalysis = () => {
     setAnalysisComplete(false);
     setTimeout(() => {
@@ -109,12 +105,10 @@ const ATSResumeOptimizer = () => {
       setActiveTab('results');
     }, 3000);
   };
-
   const ScoreCircle = ({ score, size = 120, label = "ATS Score" }) => {
     const circumference = 2 * Math.PI * 45;
     const strokeDasharray = circumference;
     const strokeDashoffset = circumference - (score / 100) * circumference;
-
     return (
       <div className="relative" style={{ width: size, height: size }}>
         <svg className="transform -rotate-90 w-full h-full">
@@ -149,41 +143,69 @@ const ATSResumeOptimizer = () => {
     );
   };
 
-  const StatCard = ({ icon: Icon, title, value, trend, color = "blue", subtitle }) => (
-    <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105">
-      <div className="flex items-center justify-between">
-        <div className="flex-1">
-          <p className="text-gray-500 text-sm font-medium">{title}</p>
-          <p className="text-3xl font-bold text-gray-900 mt-2">{value}</p>
-          {subtitle && <p className="text-gray-600 text-sm mt-1">{subtitle}</p>}
-          {trend && (
-            <p className="text-green-600 text-sm mt-1 flex items-center">
-              <TrendingUp className="w-4 h-4 mr-1" />
-              {trend}
-            </p>
-          )}
-        </div>
-        <div className={`p-3 rounded-xl bg-${color}-100 ml-4`}>
-          <Icon className={`w-8 h-8 text-${color}-600`} />
+  const colorMap = {
+    blue: { bg: 'bg-blue-100', text: 'text-blue-600' },
+    green: { bg: 'bg-green-100', text: 'text-green-600' },
+    purple: { bg: 'bg-purple-100', text: 'text-purple-600' },
+    orange: { bg: 'bg-orange-100', text: 'text-orange-600' },
+    red: { bg: 'bg-red-100', text: 'text-red-600' },
+    pink: { bg: 'bg-pink-100', text: 'text-pink-600' },
+    yellow: { bg: 'bg-yellow-100', text: 'text-yellow-600' },
+    indigo: { bg: 'bg-indigo-100', text: 'text-indigo-600' },
+    emerald: { bg: 'bg-emerald-100', text: 'text-emerald-600' }
+  };
+  
+  const StatCard = ({ icon: Icon, title, value, trend, color = "blue", subtitle }) => {
+    const classes = colorMap[color] || { bg: 'bg-blue-100', text: 'text-blue-600' };
+    return (
+      <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105">
+        <div className="flex items-center justify-between">
+          <div className="flex-1">
+            <p className="text-gray-500 text-sm font-medium">{title}</p>
+            <p className="text-3xl font-bold text-gray-900 mt-2">{value}</p>
+            {subtitle && <p className="text-gray-600 text-sm mt-1">{subtitle}</p>}
+            {trend && (
+              <p className="text-green-600 text-sm mt-1 flex items-center">
+                <TrendingUp className="w-4 h-4 mr-1" />
+                {trend}
+              </p>
+            )}
+          </div>
+          <div className={`p-3 rounded-xl ${classes.bg} ml-4`}>
+            <Icon className={`w-8 h-8 ${classes.text}`} />
+          </div>
         </div>
       </div>
-    </div>
-  );
-
+    );
+  };
+  
   const IndustryCard = ({ industry, isSelected, onClick }) => {
     const Icon = industry.icon;
+    const colors = {
+      blue: { border: 'border-blue-500', bg: 'bg-blue-50' },
+      red: { border: 'border-red-500', bg: 'bg-red-50' },
+      green: { border: 'border-green-500', bg: 'bg-green-50' },
+      purple: { border: 'border-purple-500', bg: 'bg-purple-50' },
+      pink: { border: 'border-pink-500', bg: 'bg-pink-50' },
+      yellow: { border: 'border-yellow-500', bg: 'bg-yellow-50' },
+      orange: { border: 'border-orange-500', bg: 'bg-orange-50' },
+      indigo: { border: 'border-indigo-500', bg: 'bg-indigo-50' }
+    };
+  
+    const selectedClasses = colors[industry.color] ? `${colors[industry.color].border} ${colors[industry.color].bg} shadow-lg` : 'border-blue-500 bg-blue-50 shadow-lg';
+    const unselectedClasses = 'border-gray-200 bg-white hover:border-gray-300';
+  
+    const iconBgClass = colorMap[industry.color] ? colorMap[industry.color].bg : 'bg-blue-100';
+    const iconTextClass = colorMap[industry.color] ? colorMap[industry.color].text : 'text-blue-600';
+  
     return (
       <div
         onClick={onClick}
-        className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg ${
-          isSelected
-            ? `border-${industry.color}-500 bg-${industry.color}-50 shadow-lg`
-            : 'border-gray-200 bg-white hover:border-gray-300'
-        }`}
+        className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg ${isSelected ? selectedClasses : unselectedClasses}`}
       >
         <div className="flex items-center space-x-3">
-          <div className={`p-2 rounded-lg bg-${industry.color}-100`}>
-            <Icon className={`w-6 h-6 text-${industry.color}-600`} />
+          <div className={`p-2 rounded-lg ${iconBgClass}`}>
+            <Icon className={`w-6 h-6 ${iconTextClass}`} />
           </div>
           <div>
             <h4 className="font-semibold text-gray-900">{industry.name}</h4>
@@ -219,7 +241,6 @@ const ATSResumeOptimizer = () => {
       </div>
     </div>
   );
-
   const AnalyticsChart = () => (
     <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Application Success Rate</h3>
@@ -241,7 +262,6 @@ const ATSResumeOptimizer = () => {
       </div>
     </div>
   );
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Enhanced Header */}
@@ -691,7 +711,6 @@ const ATSResumeOptimizer = () => {
                                 )}
                               </div>
                             </div>
-
                             {resumeBuilder.summary && (
                               <div>
                                 <h6 className="font-semibold text-gray-900 mb-2">PROFESSIONAL SUMMARY</h6>
@@ -701,7 +720,6 @@ const ATSResumeOptimizer = () => {
                           </div>
                         </div>
                       </div>
-
                       <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border border-green-100">
                         <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
                           <Lightbulb className="w-5 h-5 mr-2 text-yellow-600" />
@@ -734,7 +752,6 @@ const ATSResumeOptimizer = () => {
                     <h3 className="text-2xl font-bold text-gray-900 mb-4">ATS Compatibility Analysis</h3>
                     <p className="text-gray-600 mb-8">Advanced semantic analysis with industry-specific optimization</p>
                   </div>
-
                   <div className="space-y-6">
                     <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-lg">
                       <label className="block text-sm font-medium text-gray-700 mb-3">
@@ -762,7 +779,6 @@ const ATSResumeOptimizer = () => {
                         </div>
                       </div>
                     </div>
-
                     {/* Advanced Options */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
@@ -786,7 +802,6 @@ const ATSResumeOptimizer = () => {
                           </label>
                         </div>
                       </div>
-
                       <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-100">
                         <h4 className="text-lg font-semibold text-gray-900 mb-4">Target Settings</h4>
                         <div className="space-y-3">
@@ -811,13 +826,8 @@ const ATSResumeOptimizer = () => {
                         </div>
                       </div>
                     </div>
-
                     <div className="flex justify-center">
-                      <button
-                        onClick={simulateAnalysis}
-                        disabled={!uploadedFile || !jobDescription}
-                        className="px-12 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed transition-all duration-300 font-semibold flex items-center space-x-3 text-lg shadow-lg transform hover:scale-105"
-                      >
+                      <button onClick={simulateAnalysis} disabled={!uploadedFile || !jobDescription} className="px-12 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed transition-all duration-300 font-semibold flex items-center space-x-3 text-lg shadow-lg transform hover:scale-105" >
                         <Brain className="w-6 h-6" />
                         <span>Start AI Analysis</span>
                       </button>
@@ -847,14 +857,12 @@ const ATSResumeOptimizer = () => {
                       </div>
                     </div>
                   )}
-
                   {analysisComplete && (
                     <>
                       <div className="text-center">
                         <h3 className="text-3xl font-bold text-gray-900 mb-4">ATS Compatibility Results</h3>
                         <p className="text-gray-600 mb-8">Comprehensive ATS intelligence with industry-specific insights</p>
                       </div>
-
                       {/* Enhanced Score Dashboard */}
                       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-8 text-center border border-blue-100">
@@ -863,507 +871,251 @@ const ATSResumeOptimizer = () => {
                             <h4 className="text-lg font-semibold text-gray-900 mb-2">Overall ATS Score</h4>
                             <p className="text-gray-600 text-sm">Excellent compatibility</p>
                             <div className="mt-3 flex justify-center">
-                              <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
-                                Top 15%
-                              </span>
+                              <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium"> Top 15% </span>
                             </div>
                           </div>
                         </div>
-
                         <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 text-center border border-green-100">
-                          <ScoreCircle score={92} size={100} label="Keywords" />
-                          <h4 className="text-sm font-semibold text-gray-900 mt-3">Keyword Match</h4>
-                          <p className="text-gray-600 text-xs">Strong alignment</p>
-                        </div>
-
-                        <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-xl p-6 text-center border border-orange-100">
-                          <ScoreCircle score={74} size={100} label="Format" />
-                          <h4 className="text-sm font-semibold text-gray-900 mt-3">Format Score</h4>
-                          <p className="text-gray-600 text-xs">Needs improvement</p>
+                          <CheckCircle className="w-12 h-12 text-green-500 mx-auto" />
+                          <h4 className="text-lg font-semibold text-gray-900 mt-4">Keyword Match</h4>
+                          <p className="text-gray-600 text-sm mt-1">Found 8/10 keywords</p>
+                          <div className="mt-4">
+                            <ul className="text-left text-sm space-y-2 text-gray-700">
+                              <li className="flex items-center space-x-2">
+                                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                                <span>Python, Machine Learning, Deep Learning</span>
+                              </li>
+                              <li className="flex items-center space-x-2">
+                                <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
+                                <span>Data Analysis (weak match)</span>
+                              </li>
+                              <li className="flex items-center space-x-2">
+                                <span className="w-2 h-2 bg-red-500 rounded-full"></span>
+                                <span>SQL, TensorFlow (missing)</span>
+                              </li>
+                            </ul>
+                            <div className="mt-4 flex justify-center">
+                              <button className="text-blue-600 text-sm font-medium hover:underline flex items-center">
+                                View all details <ExternalLink className="w-4 h-4 ml-1" />
+                              </button>
+                            </div>
+                          </div>
                         </div>
 
                         <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 text-center border border-purple-100">
-                          <ScoreCircle score={88} size={100} label="Industry" />
-                          <h4 className="text-sm font-semibold text-gray-900 mt-3">Industry Fit</h4>
-                          <p className="text-gray-600 text-xs">Excellent match</p>
+                          <BookOpen className="w-12 h-12 text-purple-500 mx-auto" />
+                          <h4 className="text-lg font-semibold text-gray-900 mt-4">Format & Readability</h4>
+                          <p className="text-gray-600 text-sm mt-1">Excellent for ATS parsing</p>
+                          <div className="mt-4">
+                            <ul className="text-left text-sm space-y-2 text-gray-700">
+                              <li className="flex items-center space-x-2">
+                                <CheckCircle className="w-4 h-4 text-green-500" />
+                                <span>Clean section headers</span>
+                              </li>
+                              <li className="flex items-center space-x-2">
+                                <AlertCircle className="w-4 h-4 text-red-500" />
+                                <span>Tables and columns detected</span>
+                              </li>
+                              <li className="flex items-center space-x-2">
+                                <CheckCircle className="w-4 h-4 text-green-500" />
+                                <span>Standard fonts and spacing</span>
+                              </li>
+                            </ul>
+                            <div className="mt-4 flex justify-center">
+                              <button className="text-blue-600 text-sm font-medium hover:underline flex items-center">
+                                View full report <ExternalLink className="w-4 h-4 ml-1" />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl p-6 text-center border border-orange-100">
+                          <Lightbulb className="w-12 h-12 text-orange-500 mx-auto" />
+                          <h4 className="text-lg font-semibold text-gray-900 mt-4">Actionable Insights</h4>
+                          <p className="text-gray-600 text-sm mt-1">Suggestions for improvement</p>
+                          <div className="mt-4">
+                            <ul className="text-left text-sm space-y-2 text-gray-700">
+                              <li className="flex items-center space-x-2">
+                                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>Add quantifiable achievements</span>
+                              </li>
+                              <li className="flex items-center space-x-2">
+                                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>Include industry-specific keywords</span>
+                              </li>
+                              <li className="flex items-center space-x-2">
+                                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span>Strengthen summary with a new intro</span>
+                              </li>
+                            </ul>
+                            <div className="mt-4 flex justify-center">
+                              <button className="text-blue-600 text-sm font-medium hover:underline flex items-center">
+                                View all insights <ExternalLink className="w-4 h-4 ml-1" />
+                              </button>
+                            </div>
+                          </div>
                         </div>
                       </div>
 
-                      {/* Enhanced Analysis Sections */}
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        {/* Keyword Analysis */}
-                        <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-lg">
-                          <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                            <Target className="w-5 h-5 mr-2 text-blue-600" />
-                            Advanced Keyword Analysis
-                          </h4>
-                          <div className="space-y-3">
-                            {optimization.keywords.map((item, index) => (
-                              <div key={index} className="p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
-                                <div className="flex items-center justify-between mb-2">
-                                  <span className="font-medium text-gray-900">{item.keyword}</span>
-                                  <div className="flex items-center space-x-2">
-                                    <span className={`text-xs px-2 py-1 rounded-full ${
-                                      item.status === 'present' ? 'bg-green-100 text-green-700' :
-                                      item.status === 'weak' ? 'bg-yellow-100 text-yellow-700' :
-                                      'bg-red-100 text-red-700'
+                      {/* Keyword Breakdown Table */}
+                      <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+                        <h4 className="text-lg font-semibold text-gray-900 mb-4">Keyword Breakdown</h4>
+                        <div className="overflow-x-auto">
+                          <table className="min-w-full divide-y divide-gray-200">
+                            <thead className="bg-gray-50">
+                              <tr>
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                  Keyword
+                                </th>
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                  Status
+                                </th>
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                  Importance
+                                </th>
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                  Frequency
+                                </th>
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                  Recommended
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody className="bg-white divide-y divide-gray-200">
+                              {optimization.keywords.map((item, index) => (
+                                <tr key={index} className="hover:bg-gray-50">
+                                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    {item.keyword}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                                      item.status === 'present' ? 'bg-green-100 text-green-800' :
+                                      item.status === 'weak' ? 'bg-orange-100 text-orange-800' :
+                                      'bg-red-100 text-red-800'
                                     }`}>
                                       {item.status}
                                     </span>
-                                    <span className={`text-xs px-2 py-1 rounded-full ${
-                                      item.importance === 'high' ? 'bg-red-100 text-red-700' :
-                                      'bg-blue-100 text-blue-700'
-                                    }`}>
-                                      {item.importance}
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="flex justify-between text-xs text-gray-600">
-                                  <span>Current: {item.frequency}x</span>
-                                  <span>Recommended: {item.recommended}x</span>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Semantic Matching */}
-                        <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-lg">
-                          <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                            <Brain className="w-5 h-5 mr-2 text-purple-600" />
-                            Semantic Intelligence
-                          </h4>
-                          <div className="space-y-4">
-                            {optimization.semanticMatches.map((item, index) => (
-                              <div key={index} className="p-3 rounded-lg bg-gradient-to-r from-purple-50 to-blue-50">
-                                <div className="font-medium text-gray-900 mb-2">{item.original}</div>
-                                <div className="flex flex-wrap gap-2">
-                                  {item.alternatives.map((alt, altIndex) => (
-                                    <span key={altIndex} className="px-2 py-1 bg-white text-purple-700 rounded text-xs font-medium">
-                                      {alt}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {item.importance}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {item.frequency}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {item.recommended}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
                         </div>
                       </div>
 
-                      {/* Comprehensive Suggestions */}
-                      <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl p-8 border border-indigo-100">
-                        <h4 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
-                          <Sparkles className="w-6 h-6 mr-3 text-yellow-500" />
-                          AI-Powered Enhancement Recommendations
-                        </h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div>
-                            <h5 className="font-semibold text-gray-900 mb-3">Content Improvements</h5>
-                            <div className="space-y-2">
-                              {optimization.suggestions.slice(0, 3).map((suggestion, index) => (
-                                <div key={index} className="flex items-start space-x-3 p-3 bg-white rounded-lg">
-                                  <Lightbulb className="w-4 h-4 text-yellow-500 mt-0.5 flex-shrink-0" />
-                                  <span className="text-sm text-gray-700">{suggestion}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                          <div>
-                            <h5 className="font-semibold text-gray-900 mb-3">Industry-Specific Tips</h5>
-                            <div className="space-y-2">
-                              {optimization.industrySpecific.slice(0, 3).map((tip, index) => (
-                                <div key={index} className="flex items-start space-x-3 p-3 bg-white rounded-lg">
-                                  <Building2 className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                                  <span className="text-sm text-gray-700">{tip}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
+                      {/* Semantic Match Section */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+                          <h4 className="text-lg font-semibold text-gray-900 mb-4">Semantic Matches</h4>
+                          <p className="text-sm text-gray-600 mb-4">Keywords found in your resume that are semantically similar to the job description.</p>
+                          <ul className="space-y-4">
+                            {optimization.semanticMatches.map((item, index) => (
+                              <li key={index} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                                <p className="font-medium text-gray-900">{item.original}</p>
+                                <p className="text-sm text-gray-600 mt-1">
+                                  Alternatives: <span className="font-normal text-blue-600">{item.alternatives.join(', ')}</span>
+                                </p>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+                          <h4 className="text-lg font-semibold text-gray-900 mb-4">Formatting & Suggestions</h4>
+                          <ul className="space-y-4 text-sm">
+                            {optimization.formatIssues.map((issue, index) => (
+                              <li key={index} className="flex items-start space-x-3 text-red-600">
+                                <AlertCircle className="w-5 h-5 flex-shrink-0 mt-1" />
+                                <span>{issue}</span>
+                              </li>
+                            ))}
+                            {optimization.suggestions.map((suggestion, index) => (
+                              <li key={index} className="flex items-start space-x-3 text-green-600">
+                                <CheckCircle className="w-5 h-5 flex-shrink-0 mt-1" />
+                                <span>{suggestion}</span>
+                              </li>
+                            ))}
+                          </ul>
                         </div>
                       </div>
                     </>
                   )}
                 </div>
               )}
-
-              {/* Enhanced Optimize Tab */}
-              {activeTab === 'optimize' && (
-                <div className="space-y-8">
-                  <div className="text-center">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Resume Optimizer</h3>
-                    <p className="text-gray-600 mb-8">Apply intelligent improvements with one-click optimization</p>
-                  </div>
-
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div className="space-y-6">
-                      {/* Quick Fixes */}
-                      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
-                        <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                          <Zap className="w-5 h-5 mr-2 text-yellow-500" />
-                          Quick Fixes
-                          <span className="ml-auto text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded">
-                            +12 ATS Points
-                          </span>
-                        </h4>
-                        <div className="space-y-3">
-                          {[
-                            { fix: 'Remove formatting tables', impact: '+3 points', status: 'ready' },
-                            { fix: 'Add missing keywords', impact: '+5 points', status: 'ready' },
-                            { fix: 'Optimize section headers', impact: '+2 points', status: 'ready' },
-                            { fix: 'Improve keyword density', impact: '+2 points', status: 'ready' }
-                          ].map((item, index) => (
-                            <div key={index} className="flex items-center justify-between p-3 bg-white rounded-lg">
-                              <div>
-                                <span className="text-gray-700">{item.fix}</span>
-                                <div className="text-xs text-green-600">{item.impact}</div>
-                              </div>
-                              <button className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700 transition-colors">
-                                Apply
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                        <button className="w-full mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
-                          Apply All Quick Fixes
-                        </button>
-                      </div>
-
-                      {/* AI Content Enhancement */}
-                      <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 border border-green-100">
-                        <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                          <Sparkles className="w-5 h-5 mr-2 text-green-500" />
-                          AI Content Enhancement
-                          <span className="ml-auto text-sm bg-green-100 text-green-700 px-2 py-1 rounded">
-                            Advanced
-                          </span>
-                        </h4>
-                        <div className="space-y-3">
-                          {[
-                            { enhancement: 'Rewrite bullet points with action verbs', complexity: 'Advanced' },
-                            { enhancement: 'Add quantifiable achievements', complexity: 'Medium' },
-                            { enhancement: 'Optimize for industry trends', complexity: 'Expert' },
-                            { enhancement: 'Enhance technical skills section', complexity: 'Medium' }
-                          ].map((item, index) => (
-                            <div key={index} className="flex items-center justify-between p-3 bg-white rounded-lg">
-                              <div>
-                                <span className="text-gray-700">{item.enhancement}</span>
-                                <div className="text-xs text-purple-600">{item.complexity}</div>
-                              </div>
-                              <button className="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700 transition-colors">
-                                Enhance
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Enhanced Preview */}
-                    <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-lg">
-                      <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center justify-between">
-                        <div className="flex items-center">
-                          <Eye className="w-5 h-5 mr-2 text-blue-600" />
-                          Optimized Preview
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <span className="text-sm text-gray-500">Before:</span>
-                          <ScoreCircle score={78} size={40} label="" />
-                          <span className="text-sm text-gray-500">After:</span>
-                          <ScoreCircle score={92} size={40} label="" />
-                        </div>
-                      </h4>
-                      <div className="bg-gray-50 rounded-lg p-4 h-80 overflow-y-auto border-2 border-dashed border-gray-300">
-                        <div className="text-center text-gray-500">
-                          <FileText className="w-12 h-12 mx-auto mb-2" />
-                          <p className="font-medium">Optimized Resume Preview</p>
-                          <p className="text-sm mt-1">Apply enhancements to see the improved version</p>
-                        </div>
-                      </div>
-                      <div className="mt-4 grid grid-cols-2 gap-3">
-                        <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center">
-                          <Download className="w-4 h-4 mr-2" />
-                          Download PDF
-                        </button>
-                        <button className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center justify-center">
-                          <Copy className="w-4 h-4 mr-2" />
-                          Copy Text
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Version Comparison */}
-                  <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-6 border border-purple-100">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                      <BarChart3 className="w-5 h-5 mr-2 text-purple-600" />
-                      Before vs After Analysis
-                    </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-red-600 mb-1">78%</div>
-                        <div className="text-sm text-gray-600 mb-3">Original Score</div>
-                        <div className="text-xs text-gray-500">
-                          • Missing keywords<br/>
-                          • Format issues<br/>
-                          • Weak descriptions
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-center">
-                        <div className="text-4xl text-green-500">→</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-green-600 mb-1">92%</div>
-                        <div className="text-sm text-gray-600 mb-3">Optimized Score</div>
-                        <div className="text-xs text-gray-500">
-                          • Complete keywords<br/>
-                          • ATS-friendly format<br/>
-                          • Strong achievements
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Integrations Tab */}
-              {activeTab === 'integrations' && (
-                <div className="space-y-8">
-                  <div className="text-center">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Platform Integrations</h3>
-                    <p className="text-gray-600 mb-8">Connect with job boards and career platforms for seamless application workflow</p>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {[
-                      { name: 'LinkedIn', icon: Users, connected: true, color: 'blue', jobs: '2.5M+' },
-                      { name: 'Indeed', icon: Search, connected: true, color: 'blue', jobs: '1.8M+' },
-                      { name: 'Glassdoor', icon: Building2, connected: false, color: 'green', jobs: '900K+' },
-                      { name: 'Monster', icon: Briefcase, connected: false, color: 'purple', jobs: '650K+' },
-                      { name: 'ZipRecruiter', icon: Zap, connected: true, color: 'orange', jobs: '1.2M+' },
-                      { name: 'AngelList', icon: Star, connected: false, color: 'red', jobs: '150K+' }
-                    ].map((platform, index) => (
-                      <div key={index} className={`bg-white rounded-xl p-6 border-2 shadow-lg transition-all duration-300 hover:shadow-xl ${
-                        platform.connected ? 'border-green-200 bg-green-50' : 'border-gray-200 hover:border-blue-300'
-                      }`}>
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center space-x-3">
-                            <div className={`p-2 rounded-lg bg-${platform.color}-100`}>
-                              <platform.icon className={`w-6 h-6 text-${platform.color}-600`} />
-                            </div>
-                            <div>
-                              <h4 className="font-semibold text-gray-900">{platform.name}</h4>
-                              <p className="text-sm text-gray-500">{platform.jobs} jobs</p>
-                            </div>
-                          </div>
-                          <div className={`w-3 h-3 rounded-full ${
-                            platform.connected ? 'bg-green-500' : 'bg-gray-300'
-                          }`}></div>
-                        </div>
-                        <button className={`w-full py-2 px-4 rounded-lg transition-colors font-medium ${
-                          platform.connected
-                            ? 'bg-green-600 text-white hover:bg-green-700'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                        }`}>
-                          {platform.connected ? 'Connected' : 'Connect'}
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* API Integration */}
-                  <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-8 border border-indigo-100">
-                    <h4 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                      <Code className="w-6 h-6 mr-3 text-indigo-600" />
-                      Developer API Integration
-                    </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      <div>
-                        <h5 className="font-semibold text-gray-900 mb-3">Available APIs</h5>
-                        <div className="space-y-2">
-                          <div className="flex items-center space-x-3 p-3 bg-white rounded-lg">
-                            <Code className="w-4 h-4 text-blue-500" />
-                            <span className="text-sm text-gray-700">Resume Analysis API</span>
-                            <span className="ml-auto text-xs bg-green-100 text-green-700 px-2 py-1 rounded">Active</span>
-                          </div>
-                          <div className="flex items-center space-x-3 p-3 bg-white rounded-lg">
-                            <Target className="w-4 h-4 text-purple-500" />
-                            <span className="text-sm text-gray-700">ATS Scoring API</span>
-                            <span className="ml-auto text-xs bg-green-100 text-green-700 px-2 py-1 rounded">Active</span>
-                          </div>
-                          <div className="flex items-center space-x-3 p-3 bg-white rounded-lg">
-                            <Brain className="w-4 h-4 text-orange-500" />
-                            <span className="text-sm text-gray-700">Keyword Extraction API</span>
-                            <span className="ml-auto text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">Beta</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <h5 className="font-semibold text-gray-900 mb-3">Quick Start</h5>
-                        <div className="bg-gray-900 rounded-lg p-4 text-sm">
-                          <div className="text-green-400 mb-2">{`// Initialize API client`}</div>
-                          <div className="text-blue-300">const</div>
-                          <div className="text-white"> client = </div>
-                          <div className="text-yellow-300">new</div>
-                          <div className="text-white"> ResumeOptimizer(apiKey);</div>
-                          <br/>
-                          <div className="text-green-400 mb-2">{`// Analyze resume`}</div>
-                          <div className="text-blue-300">const</div>
-                          <div className="text-white"> result = </div>
-                          <div className="text-blue-300">await</div>
-                          <div className="text-white"> client.analyze(resume);</div>
-                        </div>
-                        <button className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-                          Get API Key
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced Features Section */}
-      <section className="py-20 bg-gradient-to-r from-indigo-900 via-blue-900 to-purple-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h3 className="text-4xl font-bold mb-6">ATS-Compatible Features</h3>
-            <p className="text-blue-100 text-xl max-w-4xl mx-auto leading-relaxed">
-              Advanced AI technology meets comprehensive career development tools to deliver
-              unmatched resume optimization and ATS compatibility
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: Brain,
-                title: 'Semantic AI Analysis',
-                description: 'Advanced NLP understands context and meaning beyond simple keyword matching'
-              },
-              {
-                icon: Globe,
-                title: 'Multi-Language Support',
-                description: 'Process resumes and job descriptions in 25+ languages with cultural adaptations'
-              },
-              {
-                icon: Building2,
-                title: '20+ Industry Templates',
-                description: 'Specialized optimization for healthcare, tech, finance, and more industries'
-              },
-              {
-                icon: Shield,
-                title: 'Enterprise Security',
-                description: 'Bank-grade encryption with GDPR compliance and data protection'
-              },
-              {
-                icon: Zap,
-                title: 'Real-Time Processing',
-                description: 'Instant analysis and feedback with millisecond response times'
-              },
-              {
-                icon: LineChart,
-                title: 'Advanced Analytics',
-                description: 'Comprehensive dashboards with success metrics and trend analysis'
-              },
-              {
-                icon: ExternalLink,
-                title: 'API Integration',
-                description: 'Robust APIs for seamless integration with existing HR systems'
-              },
-              {
-                icon: Users,
-                title: 'Collaboration Tools',
-                description: 'Team features for career centers and recruitment agencies'
-              }
-            ].map(({ icon: Icon, title, description }, index) => (
-              <div key={index} className="text-center p-8 rounded-xl bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-white bg-opacity-20 rounded-xl mb-6">
-                  <Icon className="w-8 h-8 text-white" />
-                </div>
-                <h4 className="text-xl font-semibold mb-4">{title}</h4>
-                <p className="text-blue-100 text-sm leading-relaxed">{description}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Call to Action */}
-          <div className="text-center mt-16">
-            <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 border border-white border-opacity-20">
-              <h4 className="text-2xl font-bold mb-4">Ready to Transform Your Career?</h4>
-              <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-                Join thousands of professionals who have optimized their resumes and landed their dream jobs
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-105">
-                  Start Free Trial
-                </button>
-                <button className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-600 transition-all duration-300">
-                  Schedule Demo
-                </button>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Enhanced Footer */}
-      <footer className="bg-gray-900 text-white py-16">
+      <footer className="bg-gray-900 text-gray-300 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-            <div className="lg:col-span-2">
-              <div className="flex items-center space-x-3 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3">
                 <div className="p-2 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg">
-                  <Brain className="w-8 h-8 text-white" />
+                  <Brain className="w-6 h-6 text-white" />
                 </div>
-                <div>
-                  <span className="text-2xl font-bold">Resume Optimizer</span>
-                  <div className="text-sm text-gray-400">ATS Intelligence Platform</div>
-                </div>
+                <h3 className="text-lg font-bold text-white">Resume Optimizer</h3>
               </div>
-              <p className="text-gray-400 mb-6 max-w-md">
-                Empowering professionals worldwide with AI-driven resume optimization,
-                multi-industry intelligence, and career development tools.
+              <p className="text-sm text-gray-400">
+                AI-powered platform to maximize your resume's ATS compatibility and get noticed by recruiters.
               </p>
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-2">
-                  <Shield className="w-5 h-5 text-green-400" />
-                  <span className="text-sm text-gray-300">Secure Platform</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Lock className="w-5 h-5 text-blue-400" />
-                  <span className="text-sm text-gray-300">GDPR Compliant</span>
-                </div>
+              <div className="flex space-x-4">
+                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
+                  </svg>
+                </a>
+                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M16.3 12.5c0-1.6-1.3-2.9-2.9-2.9s-2.9 1.3-2.9 2.9 1.3 2.9 2.9 2.9 2.9-1.3 2.9-2.9zm-2.9-4.2c2.7 0 4.8 2.2 4.8 4.8s-2.1 4.8-4.8 4.8-4.8-2.2-4.8-4.8 2.1-4.8 4.8-4.8zm3.2-3.6c.5 0 .9-.4.9-.9s-.4-.9-.9-.9-.9.4-.9.9.4.9.9.9zm-5.6-.2c-1.3-.2-2.7.2-3.8 1.1s-1.8 2.3-2.2 3.7c-.5 1.5-.3 3.1.5 4.5.8 1.5 2.1 2.6 3.6 3.2 1.5.6 3.1.8 4.6.3 1.5-.5 2.8-1.5 3.7-2.9s1.4-3.1 1.2-4.7c-.2-1.6-.9-3-2-4.2-.9-.9-2.2-1.6-3.7-1.9zm5.2 2.7c-1.1-1.1-2.6-1.9-4.3-1.9h-1.9c-1.7 0-3.2.7-4.3 1.9s-1.9 2.6-1.9 4.3v1.9c0 1.7.7 3.2 1.9 4.3s2.6 1.9 4.3 1.9h1.9c1.7 0 3.2-.7 4.3-1.9s1.9-2.6 1.9-4.3v-1.9c0-1.7-.7-3.2-1.9-4.3z" />
+                  </svg>
+                </a>
+                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M22 5.5c-.7.3-1.5.5-2.3.6.8-.5 1.4-1.2 1.7-2.1-.8.5-1.6.8-2.6 1-.8-.8-2-1.3-3.3-1.3-2.5 0-4.5 2-4.5 4.5s2 4.5 4.5 4.5c.8 0 1.6-.2 2.3-.6-.8.5-1.4 1.2-1.7 2.1.8-.5 1.6-.8 2.6-1 .8.8 2 1.3 3.3 1.3 2.5 0 4.5-2 4.5-4.5s-2-4.5-4.5-4.5c-.8 0-1.6.2-2.3.6z" />
+                  </svg>
+                </a>
+                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.2 4.4H3.8c-.8 0-1.5.7-1.5 1.5v12.2c0 .8.7 1.5 1.5 1.5h16.4c.8 0 1.5-.7 1.5-1.5V5.9c0-.8-.7-1.5-1.5-1.5zm-8.3 12.3c-.3 0-.5-.2-.5-.5v-6.9c0-.3.2-.5.5-.5s.5.2.5.5v6.9c0 .3-.2.5-.5.5zm4.8 0c-.3 0-.5-.2-.5-.5v-6.9c0-.3.2-.5.5-.5s.5.2.5.5v6.9c0 .3-.2.5-.5.5zm-9.6 0c-.3 0-.5-.2-.5-.5v-6.9c0-.3.2-.5.5-.5s.5.2.5.5v6.9c0 .3-.2.5-.5.5zm11.7-1.1c.3 0 .5.2.5.5v-1.6c0-.3-.2-.5-.5-.5s-.5.2-.5.5v1.6c0 .3.2.5.5.5zm-4.7 0c.3 0 .5.2.5.5v-1.6c0-.3-.2-.5-.5-.5s-.5.2-.5.5v1.6c0 .3.2.5.5.5zm-4.7 0c.3 0 .5.2.5.5v-1.6c0-.3-.2-.5-.5-.5s-.5.2-.5.5v1.6c0 .3.2.5.5.5zm-4.7 0c.3 0 .5.2.5.5v-1.6c0-.3-.2-.5-.5-.5s-.5.2-.5.5v1.6c0 .3.2.5.5.5z" />
+                  </svg>
+                </a>
               </div>
             </div>
 
             <div>
-              <h5 className="font-semibold mb-4 text-lg">Product</h5>
-              <ul className="space-y-3 text-gray-400">
+              <h4 className="text-white font-semibold mb-4">Product</h4>
+              <ul className="space-y-2 text-sm">
                 <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Templates</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">API Documentation</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Enterprise</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">API</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Integrations</a></li>
               </ul>
             </div>
 
             <div>
-              <h5 className="font-semibold mb-4 text-lg">Support</h5>
-              <ul className="space-y-3 text-gray-400">
+              <h4 className="text-white font-semibold mb-4">Resources</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact Support</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Community Forum</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">System Status</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Tutorials</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Case Studies</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Whitepapers</a></li>
               </ul>
             </div>
 
             <div>
-              <h5 className="font-semibold mb-4 text-lg">Company</h5>
-              <ul className="space-y-3 text-gray-400">
+              <h4 className="text-white font-semibold mb-4">Company</h4>
+              <ul className="space-y-2 text-sm">
                 <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Press Kit</a></li>
