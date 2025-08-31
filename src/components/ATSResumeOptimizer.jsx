@@ -257,7 +257,7 @@ const ATSResumeOptimizer = () => {
 
             <div className="flex items-center space-x-4">
               {/* Language Selector */}
-              <select 
+              <select
                 value={selectedLanguage}
                 onChange={(e) => setSelectedLanguage(e.target.value)}
                 className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -297,11 +297,11 @@ const ATSResumeOptimizer = () => {
               </span>
             </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-4xl mx-auto leading-relaxed">
-              Transform your resume into an ATS-friendly powerhouse with AI-driven optimization, 
+              Transform your resume into an ATS-friendly powerhouse with AI-driven optimization,
               real-time keyword analysis, and intelligent formatting suggestions that get you noticed.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <button 
+              <button
                 onClick={() => setActiveTab('dashboard')}
                 className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center space-x-2"
               >
@@ -352,34 +352,34 @@ const ATSResumeOptimizer = () => {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <StatCard 
-              icon={Users} 
-              title="Global Users" 
-              value="250,000+" 
+            <StatCard
+              icon={Users}
+              title="Global Users"
+              value="250,000+"
               trend="+28% this quarter"
               color="blue"
               subtitle="Across 45 countries"
             />
-            <StatCard 
-              icon={FileText} 
-              title="Resumes Optimized" 
-              value="1.2M+" 
+            <StatCard
+              icon={FileText}
+              title="Resumes Optimized"
+              value="1.2M+"
               trend="+45% this quarter"
               color="green"
               subtitle="Multi-language support"
             />
-            <StatCard 
-              icon={Target} 
-              title="Average Success Rate" 
-              value="92%" 
+            <StatCard
+              icon={Target}
+              title="Average Success Rate"
+              value="92%"
               trend="+8% improvement"
               color="purple"
               subtitle="Industry-optimized"
             />
-            <StatCard 
-              icon={Building2} 
-              title="Enterprise Clients" 
-              value="500+" 
+            <StatCard
+              icon={Building2}
+              title="Enterprise Clients"
+              value="500+"
               trend="+35% this quarter"
               color="orange"
               subtitle="Fortune 1000 companies"
@@ -395,7 +395,7 @@ const ATSResumeOptimizer = () => {
 
             {/* Enhanced Tab Navigation */}
             <div className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-blue-50">
-              <nav className="flex space-x-8 px-8 overflow-x-auto">
+              <nav className="flex space-x-2 sm:space-x-8 px-4 sm:px-8 overflow-x-auto scrollbar-hide">
                 {[
                   { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
                   { id: 'upload', label: 'Upload Resume', icon: Upload },
@@ -408,21 +408,21 @@ const ATSResumeOptimizer = () => {
                   <button
                     key={id}
                     onClick={() => setActiveTab(id)}
-                    className={`py-4 px-2 border-b-2 font-medium text-sm transition-all duration-300 flex items-center space-x-2 ${
+                    className={`py-3 sm:py-4 px-2 sm:px-3 border-b-2 font-medium text-xs sm:text-sm transition-all duration-300 flex items-center space-x-1 sm:space-x-2 whitespace-nowrap ${
                       activeTab === id
                         ? 'border-blue-600 text-blue-600 bg-white bg-opacity-50 rounded-t-lg'
                         : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                     }`}
                   >
                     <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
-                    <span className="hidden sm:inline">{label}</span>
-                    <span className="sm:hidden">{label.split(' ')[0]}</span>
+                    <span className="hidden sm:block">{label}</span>
+                    <span className="sm:hidden text-xs">{label.split(' ')[0]}</span>
                   </button>
                 ))}
               </nav>
             </div>
 
-            <div className="p-8">
+            <div className="p-4 sm:p-6 lg:p-8">
               {/* Dashboard Tab */}
               {activeTab === 'dashboard' && (
                 <div className="space-y-8">
@@ -499,7 +499,7 @@ const ATSResumeOptimizer = () => {
                     <p className="text-gray-600 mb-8">Upload your resume for advanced ATS analysis and optimization</p>
                   </div>
 
-                  <div 
+                  <div
                     className="border-2 border-dashed border-blue-300 rounded-xl p-12 text-center hover:border-blue-400 transition-colors cursor-pointer bg-gradient-to-br from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100"
                     onClick={() => fileInputRef.current?.click()}
                   >
@@ -1184,8 +1184,8 @@ const ATSResumeOptimizer = () => {
                           }`}></div>
                         </div>
                         <button className={`w-full py-2 px-4 rounded-lg transition-colors font-medium ${
-                          platform.connected 
-                            ? 'bg-green-600 text-white hover:bg-green-700' 
+                          platform.connected
+                            ? 'bg-green-600 text-white hover:bg-green-700'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}>
                           {platform.connected ? 'Connected' : 'Connect'}
@@ -1255,7 +1255,7 @@ const ATSResumeOptimizer = () => {
           <div className="text-center mb-16">
             <h3 className="text-4xl font-bold mb-6">ATS-Compatible Features</h3>
             <p className="text-blue-100 text-xl max-w-4xl mx-auto leading-relaxed">
-              Advanced AI technology meets comprehensive career development tools to deliver 
+              Advanced AI technology meets comprehensive career development tools to deliver
               unmatched resume optimization and ATS compatibility
             </p>
           </div>
@@ -1348,7 +1348,7 @@ const ATSResumeOptimizer = () => {
                 </div>
               </div>
               <p className="text-gray-400 mb-6 max-w-md">
-                Empowering professionals worldwide with AI-driven resume optimization, 
+                Empowering professionals worldwide with AI-driven resume optimization,
                 multi-industry intelligence, and career development tools.
               </p>
               <div className="flex items-center space-x-4">
