@@ -86,7 +86,6 @@ function Register() {
 }
 
 function OptimizerWrapper({ onLogout }) {
-  const navigate = useNavigate();
   const [showWelcome, setShowWelcome] = useState(false);
 
   useEffect(() => {
