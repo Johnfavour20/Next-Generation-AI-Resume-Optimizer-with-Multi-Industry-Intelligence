@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Upload, FileText, Target, BarChart3, CheckCircle, AlertCircle, Download, Sparkles, Brain, Users, TrendingUp, Eye, RefreshCw, Search, BookOpen, Lightbulb, Globe, Building2, Zap, LineChart, Mail, Phone, User, Edit3, Plus, Copy, ExternalLink, Shield, Lock, Clock, Star, Briefcase, GraduationCap, Code, Palette, Heart, DollarSign, Truck, Camera } from 'lucide-react';
+import { Upload, FileText, Target, BarChart3, CheckCircle, AlertCircle, Download, Sparkles, Brain, Users, TrendingUp, Eye, RefreshCw, Search, BookOpen, Lightbulb, Globe, Building2, Zap, LineChart, Mail, Phone, User, Edit3, Plus, Copy, ExternalLink, Shield, Lock, Clock, Star, Briefcase, GraduationCap, Code, Palette, Heart, DollarSign, Truck, Camera, Settings } from 'lucide-react';
 
 const ATSResumeOptimizer = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -32,6 +32,11 @@ const ATSResumeOptimizer = () => {
     semanticMatches: []
   });
   const fileInputRef = useRef(null);
+
+  // Dummy logout function for demonstration
+  const onLogout = () => {
+    console.log("Logging out...");
+  };
 
   const industries = [
     { id: 'technology', name: 'Technology & IT', icon: Code, color: 'blue' },
@@ -286,64 +291,35 @@ const ATSResumeOptimizer = () => {
       </header>
 
       {/* Enhanced Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 text-white">
-        <div className="absolute inset-0 bg-black opacity-10"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center">
-            <h2 className="text-5xl font-bold mb-6 leading-tight">
-              Intelligent Resume Optimizer
-              <span className="block bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-                for ATS Compatibility
-              </span>
-            </h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-4xl mx-auto leading-relaxed">
-              Transform your resume into an ATS-friendly powerhouse with AI-driven optimization,
-              real-time keyword analysis, and intelligent formatting suggestions that get you noticed.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-              <button
-                onClick={() => setActiveTab('dashboard')}
-                className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center space-x-2"
-              >
-                <Zap className="w-5 h-5" />
-                <span>Launch Platform</span>
-              </button>
-              <button className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-600 transition-all duration-300 flex items-center space-x-2">
-                <ExternalLink className="w-5 h-5" />
-                <span>API Documentation</span>
-              </button>
+      <section className="relative bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 text-white py-12 sm:py-16 lg:py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="space-y-6 lg:space-y-8">
+              <div className="space-y-4 lg:space-y-6">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight">
+                  Next-Gen AI Resume Optimizer
+                </h1>
+                <p className="text-lg sm:text-xl lg:text-2xl text-blue-100 leading-relaxed">
+                  Beat ATS systems with 94% success rate. Our AI analyzes 1000+ job requirements to optimize your resume for any industry.
+                </p>
+              </div>
             </div>
 
-            {/* Enhanced Feature Pills */}
-            <div className="flex flex-wrap justify-center gap-3">
-              {['Multi-Language Support', '20+ Industries', 'Real-time Analysis', 'Semantic AI', 'Enterprise Security', 'API Integration'].map((feature, index) => (
-                <span key={index} className="px-4 py-2 bg-white bg-opacity-20 rounded-full text-sm font-medium backdrop-blur-sm border border-white border-opacity-30">
-                  {feature}
-                </span>
-              ))}
+            {/* Hero Image/Graphic - Placeholder */}
+            <div className="flex justify-center lg:justify-end">
+              <div className="w-full max-w-md lg:max-w-lg">
+                {/* Replace with actual hero graphic or illustration */}
+                <svg className="w-full h-auto" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M100 50 L200 150 L100 250 L10 150 Z" fill="rgba(255, 255, 255, 0.1)" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="2"/>
+                  <circle cx="200" cy="150" r="30" fill="rgba(255, 255, 255, 0.15)" stroke="rgba(255, 255, 255, 0.25)" strokeWidth="2"/>
+                  <text x="200" y="155" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold">AI</text>
+                  <path d="M300 100 L350 150 L300 200 L250 150 Z" fill="rgba(255, 255, 255, 0.1)" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="2"/>
+                  <circle cx="350" cy="150" r="20" fill="rgba(255, 255, 255, 0.15)" stroke="rgba(255, 255, 255, 0.25)" strokeWidth="2"/>
+                  <text x="350" y="155" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold">ATS</text>
+                </svg>
+              </div>
             </div>
-          </div>
-        </div>
-
-        {/* Enhanced floating elements */}
-        <div className="absolute top-20 left-10 animate-pulse">
-          <div className="p-3 bg-white bg-opacity-20 rounded-full backdrop-blur-sm">
-            <Globe className="w-6 h-6 text-white" />
-          </div>
-        </div>
-        <div className="absolute top-32 right-16 animate-bounce">
-          <div className="p-3 bg-white bg-opacity-20 rounded-full backdrop-blur-sm">
-            <Brain className="w-6 h-6 text-white" />
-          </div>
-        </div>
-        <div className="absolute bottom-20 left-20 animate-pulse">
-          <div className="p-3 bg-white bg-opacity-20 rounded-full backdrop-blur-sm">
-            <Zap className="w-6 h-6 text-white" />
-          </div>
-        </div>
-        <div className="absolute bottom-32 right-12 animate-bounce">
-          <div className="p-3 bg-white bg-opacity-20 rounded-full backdrop-blur-sm">
-            <Building2 className="w-6 h-6 text-white" />
           </div>
         </div>
       </section>
@@ -395,7 +371,7 @@ const ATSResumeOptimizer = () => {
 
             {/* Enhanced Tab Navigation */}
             <div className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-blue-50">
-              <nav className="flex space-x-2 sm:space-x-8 px-4 sm:px-8 overflow-x-auto scrollbar-hide">
+              <nav className="flex overflow-x-auto px-2 sm:px-6 space-x-2 sm:space-x-8" aria-label="Tabs">
                 {[
                   { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
                   { id: 'upload', label: 'Upload Resume', icon: Upload },
@@ -408,7 +384,7 @@ const ATSResumeOptimizer = () => {
                   <button
                     key={id}
                     onClick={() => setActiveTab(id)}
-                    className={`py-3 sm:py-4 px-2 sm:px-3 border-b-2 font-medium text-xs sm:text-sm transition-all duration-300 flex items-center space-x-1 sm:space-x-2 whitespace-nowrap ${
+                    className={`py-3 sm:py-4 px-1 sm:px-2 border-b-2 font-medium text-xs sm:text-sm transition-all duration-300 flex items-center space-x-1 sm:space-x-2 whitespace-nowrap ${
                       activeTab === id
                         ? 'border-blue-600 text-blue-600 bg-white bg-opacity-50 rounded-t-lg'
                         : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -1052,7 +1028,7 @@ const ATSResumeOptimizer = () => {
                         </button>
                       </div>
 
-                      {/* Advanced Enhancements */}
+                      {/* AI Content Enhancement */}
                       <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 border border-green-100">
                         <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
                           <Sparkles className="w-5 h-5 mr-2 text-green-500" />
